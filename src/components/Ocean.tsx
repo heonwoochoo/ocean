@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { Water } from "three-stdlib";
 
 function Ocean() {
-  const waterGeo = new THREE.PlaneGeometry(100, 100);
+  const waterGeo = new THREE.PlaneGeometry(500, 500);
   const water = new Water(waterGeo, {
     textureWidth: 512,
     textureHeight: 512,

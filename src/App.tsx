@@ -3,17 +3,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Box, OrbitControls, Sky } from "@react-three/drei";
 import * as THREE from "three";
 import Setting from "./Setting";
-import { Water } from "three-stdlib";
 import Ocean from "./components/Ocean";
+import Boat from "./components/Boat";
 
 function App() {
   const mesh = useRef<THREE.Mesh>(null);
-
-  const sky = useRef<typeof Sky>(null);
-  useEffect(() => {
-    console.log(sky);
-    // console.log(water.material.uniforms);
-  }, []);
+  const sky = useRef<typeof Sky | any>(null);
   return (
     <Canvas style={{ width: "100%", height: "100%" }}>
       <Setting />
@@ -26,12 +21,11 @@ function App() {
           rayleigh={2}
           mieCoefficient={0.005}
           mieDirectionalG={0.8}
+          sunPosition={[500, 1, -500]}
+          azimuth={90}
         />
         <Ocean />
-        <mesh ref={mesh} position={[0, 0, 0]}>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshPhongMaterial color="green" />
-        </mesh>
+        <Boat position={[0, 0.1, 0]} scale={0.02} />
       </Suspense>
     </Canvas>
   );
