@@ -17,7 +17,9 @@ const water = new Water(waterGeo, {
   waterColor: 0x001e0f,
   distortionScale: 3.7,
 });
+
 water.rotateX(-Math.PI / 2);
+// water.material.transparent = true;
 
 function Ocean(props: JSX.IntrinsicElements["group"]) {
   useFrame(() => {

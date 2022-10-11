@@ -1,10 +1,12 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, ThreeEvent, useFrame, Vector3 } from "@react-three/fiber";
-import { Box, OrbitControls, Sky } from "@react-three/drei";
+import { Box, OrbitControls, Sky, Stats } from "@react-three/drei";
 import * as THREE from "three";
 import Setting from "./Setting";
 import Ocean from "./components/Ocean";
 import Boat from "./components/Boat";
+import Trash from "./components/Trash";
+import PolarBear from "./components/PolarBear";
 
 function App() {
   const sky = useRef<typeof Sky | any>(null);
@@ -23,9 +25,9 @@ function App() {
     isMove && setPoint(e.point);
   };
   return (
-    <Canvas style={{ width: "100%", height: "100%" }}>
+    <Canvas style={{ width: "100%", height: "100%" }} dpr={[1, 2]}>
       <Setting />
-      {/* <OrbitControls /> */}
+      <OrbitControls />
       <ambientLight />
       <Suspense fallback={null}>
         <Sky
@@ -44,6 +46,9 @@ function App() {
           onPointerMove={pointerMove}
         />
         <Boat position={[0, 0.1, 0]} scale={0.02} userData={{ point }} />
+        <Trash position={[0, -1, 0]} scale={1} />
+        <PolarBear position={[0, 1, 0]} scale={0.05} />
+        <Stats />
       </Suspense>
     </Canvas>
   );

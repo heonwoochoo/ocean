@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useFrame, useThree } from "@react-three/fiber";
@@ -26,8 +26,7 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
       props.userData?.point["z"] || 0
     );
   }, [props.userData?.point]);
-
-  useFrame(({ camera }) => {
+  useFrame(() => {
     const destinationX = props.userData?.point["x"];
     const destinationZ = props.userData?.point["z"];
     const targetX = boat.current?.position.x || 0;
@@ -40,15 +39,17 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
       );
     }
   });
+
+  const mesh = useMemo(() => {
+    return new THREE.Mesh(
+      nodes.Object_2.geometry,
+      materials.IND_WoodenBoat_01_SM
+    );
+  }, []);
   return (
     <group {...props} ref={boat} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Object_2.geometry}
-          material={materials.IND_WoodenBoat_01_SM}
-        />
+        <primitive object={mesh} />
       </group>
     </group>
   );
