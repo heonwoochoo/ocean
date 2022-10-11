@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Water } from "three-stdlib";
 
-const waterGeo = new THREE.PlaneGeometry(500, 500);
+const waterGeo = new THREE.PlaneGeometry(1000, 1000);
 const water = new Water(waterGeo, {
   textureWidth: 512,
   textureHeight: 512,

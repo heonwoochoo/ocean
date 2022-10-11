@@ -2,7 +2,8 @@ import { useFrame, useThree } from "@react-three/fiber";
 
 function Setting() {
   const { camera } = useThree();
-  camera.position.set(0, 17, 30);
+  camera.position.set(15, 35, 15);
+  camera.lookAt(0, 0, -3);
   useFrame(({ gl }) => {
     gl.setSize(window.innerWidth, window.innerHeight);
   });

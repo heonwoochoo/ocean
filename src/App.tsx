@@ -11,7 +11,6 @@ function App() {
   const [point, setPoint] = useState<Vector3>([0, 0, 0]);
   const [isMove, setIsMove] = useState<boolean>(false);
   const clickedOcean = (e: ThreeEvent<MouseEvent>) => {
-    console.log(e);
     setPoint(e.point);
   };
   const pointerDown = () => {
@@ -35,7 +34,7 @@ function App() {
           rayleigh={2}
           mieCoefficient={0.005}
           mieDirectionalG={0.8}
-          sunPosition={[500, 1, -500]}
+          sunPosition={[1200, 10, -1200]}
           azimuth={90}
         />
         <Ocean
