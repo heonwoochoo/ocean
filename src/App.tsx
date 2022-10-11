@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import { Canvas, ThreeEvent, useFrame, Vector3 } from "@react-three/fiber";
 import { Box, OrbitControls, Sky } from "@react-three/drei";
 import * as THREE from "three";
 import Setting from "./Setting";
@@ -7,12 +7,26 @@ import Ocean from "./components/Ocean";
 import Boat from "./components/Boat";
 
 function App() {
-  const mesh = useRef<THREE.Mesh>(null);
   const sky = useRef<typeof Sky | any>(null);
+  const [point, setPoint] = useState<Vector3>([0, 0, 0]);
+  const [isMove, setIsMove] = useState<boolean>(false);
+  const clickedOcean = (e: ThreeEvent<MouseEvent>) => {
+    console.log(e);
+    setPoint(e.point);
+  };
+  const pointerDown = () => {
+    setIsMove(true);
+  };
+  const pointerUp = () => {
+    setIsMove(false);
+  };
+  const pointerMove = (e: ThreeEvent<MouseEvent>) => {
+    isMove && setPoint(e.point);
+  };
   return (
     <Canvas style={{ width: "100%", height: "100%" }}>
       <Setting />
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       <ambientLight />
       <Suspense fallback={null}>
         <Sky
@@ -24,8 +38,13 @@ function App() {
           sunPosition={[500, 1, -500]}
           azimuth={90}
         />
-        <Ocean />
-        <Boat position={[0, 0.1, 0]} scale={0.02} />
+        <Ocean
+          onClick={clickedOcean}
+          onPointerUp={pointerUp}
+          onPointerDown={pointerDown}
+          onPointerMove={pointerMove}
+        />
+        <Boat position={[0, 0.1, 0]} scale={0.02} userData={{ point }} />
       </Suspense>
     </Canvas>
   );
