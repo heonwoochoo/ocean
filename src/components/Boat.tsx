@@ -22,11 +22,13 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
   useEffect(() => {
     boat.current?.lookAt(
       props.userData?.point["x"] || -Math.PI / 2,
-      0,
+      1,
       props.userData?.point["z"] || 0
     );
+    console.log(boat.current);
   }, [props.userData?.point]);
-  useFrame(() => {
+  useFrame(({ clock }) => {
+    const time = clock.getElapsedTime() * 5;
     const destinationX = props.userData?.point["x"];
     const destinationZ = props.userData?.point["z"];
     const targetX = boat.current?.position.x || 0;
@@ -34,7 +36,7 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
     if (distance(destinationX, targetX, destinationZ, targetZ) > 0.003) {
       boat.current?.position.set(
         targetX + (destinationX - targetX) * 0.005,
-        0.1,
+        Math.cos(time) * 0.2 + 0.4,
         targetZ + (destinationZ - targetZ) * 0.005
       );
     }

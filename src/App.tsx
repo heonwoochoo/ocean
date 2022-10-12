@@ -46,7 +46,7 @@ function App() {
           onPointerMove={pointerMove}
         />
         <Boat position={[0, 0.1, 0]} scale={0.02} userData={{ point }} />
-        <Trash position={[0, -1, 0]} scale={1} />
+        {/* <Trash position={[0, -1, 0]} scale={1} /> */}
         <PolarBear position={[0, 1, 0]} scale={0.05} />
         <Stats />
       </Suspense>
