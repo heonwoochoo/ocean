@@ -1,43 +1,69 @@
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
   nodes: {
-    Starbuckscup1_0: THREE.Mesh;
+    Cylinder_garbage_0: THREE.Mesh;
+    Cylinder001_garbage_0: THREE.Mesh;
+    Plane_garbage_0: THREE.Mesh;
+    Cube_garbage_0: THREE.Mesh;
+    Cube001_garbage_0: THREE.Mesh;
+    Cube002_garbage_0: THREE.Mesh;
+    Cube003_garbage_0: THREE.Mesh;
+    Cube004_garbage_0: THREE.Mesh;
+    Cube005_garbage_0: THREE.Mesh;
+    Cube006_garbage_0: THREE.Mesh;
+    Cylinder002_garbage_0: THREE.Mesh;
+    Cylinder003_garbage_0: THREE.Mesh;
+    Cylinder004_garbage_0: THREE.Mesh;
+    Plane001_garbage_0: THREE.Mesh;
+    Plane002_garbage_0: THREE.Mesh;
+    Plane003_garbage_0: THREE.Mesh;
+    Cylinder005_garbage_0: THREE.Mesh;
+    Cube007_garbage_0: THREE.Mesh;
+    Cylinder006_garbage_0: THREE.Mesh;
+    Plane004_garbage_0: THREE.Mesh;
   };
   materials: {
-    starbuckspapercup: THREE.MeshStandardMaterial;
+    garbage: THREE.MeshStandardMaterial;
   };
 };
 
 function Trash(props: JSX.IntrinsicElements["group"]) {
-  const { nodes, materials } = useGLTF(
-    "assets/gltf/starbucks_paper_cup.glb"
-  ) as GLTFResult | any;
+  const { nodes, materials } = useGLTF("assets/gltf/street_garbage.glb") as
+    | GLTFResult
+    | any;
+  const trashes = useRef<THREE.Group>(null);
+  const meshes = useMemo<THREE.Mesh[]>(() => {
+    const arr: THREE.Mesh[] = [];
+    Object.keys(nodes).forEach((v) => {
+      if (nodes[v].isMesh) {
+        arr.push(new THREE.Mesh(nodes[v].geometry, materials.garbage));
+      }
+    });
+    return arr;
+  }, []);
   return (
-    <group {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group position={[4.08, 3.78, 1.7]} rotation={[-0.27, 0.6, 1.93]} />
-        <group position={[0, 1.78, 2.73]} scale={0.52}>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Starbuckscup1_0.geometry}
-            material={materials.starbuckspapercup}
-          />
-        </group>
+    <group ref={trashes} {...props} dispose={null}>
+      {meshes.map((mesh) => (
         <group
-          position={[-4.82, 3.82, 14.94]}
-          rotation={[-0.24, -0.42, 1.63]}
-        />
-        <group position={[-3.83, -8.46, 6.69]} rotation={[1.07, -0.26, -1.9]} />
-        <group position={[-5.61, -1.89, 2.79]} rotation={[-0.27, 0.6, 1.93]} />
-        <group position={[6.63, -5.97, 5.03]} rotation={[1.11, 0.81, -1.51]} />
-      </group>
+          key={mesh.uuid}
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[
+            (Math.random() - 0.5) * 500,
+            10,
+            (Math.random() - 0.5) * 500,
+          ]}
+        >
+          <primitive object={mesh} />
+        </group>
+      ))}
     </group>
   );
 }
+
 export default Trash;
-useGLTF.preload("/starbucks_paper_cup.glb");
+
+useGLTF.preload("assets/gltf/street_garbage.glb");
