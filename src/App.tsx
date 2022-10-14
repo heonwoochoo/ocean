@@ -7,6 +7,9 @@ import Ocean from "./components/Ocean";
 import Boat from "./components/Boat";
 import Trash from "./components/Trash";
 import PolarBear from "./components/PolarBear";
+import Sand from "./components/Sand";
+import Penguin from "./components/Penguin";
+import Plastic from "./components/Plastic";
 
 function App() {
   const sky = useRef<typeof Sky | any>(null);
@@ -27,7 +30,7 @@ function App() {
   return (
     <Canvas style={{ width: "100%", height: "100%" }} dpr={[1, 2]}>
       <Setting />
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       <ambientLight />
       <Suspense fallback={null}>
         <Sky
@@ -47,7 +50,10 @@ function App() {
         />
         <Boat position={[0, 0.1, 0]} scale={0.02} userData={{ point }} />
         <Trash position={[0, -1, 0]} scale={0.1} />
-        <PolarBear position={[0, 1, 0]} scale={0.03} />
+        <PolarBear position={[20, 1.5, -20]} scale={0.03} />
+        <Sand position={[-20, 1.5, 20]} scale={5} />
+        <Penguin position={[-20, 1.5, 20]} scale={0.01} />
+        <Plastic position={[0, -1, 0]} scale={0.1} />
         <Stats />
       </Suspense>
     </Canvas>

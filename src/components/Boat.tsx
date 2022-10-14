@@ -25,7 +25,6 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
       1,
       props.userData?.point["z"] || 0
     );
-    console.log(boat.current);
   }, [props.userData?.point]);
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime() * 5;
@@ -35,9 +34,9 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
     const targetZ = boat.current?.position.z || 0;
     if (distance(destinationX, targetX, destinationZ, targetZ) > 0.003) {
       boat.current?.position.set(
-        targetX + (destinationX - targetX) * 0.005,
-        Math.cos(time) * 0.2 + 0.4,
-        targetZ + (destinationZ - targetZ) * 0.005
+        targetX + (destinationX - targetX) * 0.01,
+        Math.cos(time) * 0.2 + 0.5,
+        targetZ + (destinationZ - targetZ) * 0.01
       );
     }
   });

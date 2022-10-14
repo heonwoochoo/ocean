@@ -2,10 +2,11 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 
 function Setting() {
-  const { camera } = useThree();
+  const { camera, gl } = useThree();
   useEffect(() => {
-    // camera.position.set(15, 35, 15);
-    // camera.lookAt(0, 0, -3);
+    camera.position.set(20, 30, 20);
+    camera.lookAt(0, 0, 0);
+    console.log(gl.info);
   });
 
   useFrame(({ gl }) => {
