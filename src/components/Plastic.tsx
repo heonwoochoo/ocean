@@ -26,9 +26,9 @@ function Plastic(props: JSX.IntrinsicElements["group"]) {
     for (let i = 0; i < 50; i++) {
       arr.push(
         new THREE.Vector3(
-          Math.random() * 400 - 300,
+          Math.random() * 600 - 300,
           Math.random() * 500,
-          Math.random() * 400 - 300
+          Math.random() * 600 - 300
         )
       );
     }

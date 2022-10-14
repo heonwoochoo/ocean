@@ -25,7 +25,7 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
       1,
       props.userData?.point["z"] || 0
     );
-  }, [props.userData?.point]);
+  }, [props.userData?.point, boat.current?.position]);
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime() * 5;
     const destinationX = props.userData?.point["x"];
