@@ -15,14 +15,26 @@ function TargetText(props: JSX.IntrinsicElements["group"]) {
   });
   return (
     <Center ref={text} {...props}>
-      <Text3D
-        font={"assets/font/Source Sans Pro_Regular.json"}
-        bevelEnabled
-        bevelSize={0.05}
-      >
-        Click
-        <meshNormalMaterial />
-      </Text3D>
+      {props.userData?.target ? (
+        <motion.group
+          initial={{ y: 0 }}
+          animate={{ y: 0.5 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Text3D
+            font={"assets/font/Source Sans Pro_Regular.json"}
+            bevelEnabled
+            bevelSize={0.05}
+          >
+            Click
+            <motion.meshNormalMaterial
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            />
+          </Text3D>
+        </motion.group>
+      ) : null}
     </Center>
   );
 }
