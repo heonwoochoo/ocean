@@ -51,7 +51,7 @@ function Setting(props: IProps) {
           props.position.polar["y"] + 5,
           props.position.polar["z"] + 8
         ),
-        0.03
+        0.01
       );
     }
   });

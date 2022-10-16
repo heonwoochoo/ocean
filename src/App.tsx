@@ -16,7 +16,7 @@ import styled from "styled-components";
 type PointTarget = "penguin" | "polar" | null;
 type ClickTarget = "penguin" | "polar" | null;
 const positionState = {
-  penguin: new THREE.Vector3(-10, 1.5, 10),
+  penguin: new THREE.Vector3(-10, 1.7, 10),
   penguinClick: [-10, 10, 10] as Vector3,
   polar: new THREE.Vector3(10, 1.5, -10),
   polarClick: [10, 10, -10] as Vector3,
@@ -38,30 +38,23 @@ const Btn = styled.button`
 function App() {
   const sky = useRef<typeof Sky | any>(null);
   const [point, setPoint] = useState<Vector3>([0, 0, 0]);
-  const [isMove, setIsMove] = useState<boolean>(false);
   const [pointTarget, setPointTarget] = useState<PointTarget>(null);
   const [clickTarget, setClickTarget] = useState<ClickTarget>(null);
   const [positions, setPositions] = useState(positionState);
   const clickedOcean = (e: ThreeEvent<MouseEvent>) => {
+    if (clickTarget) return;
     setPoint(e.point);
     // setClickTarget(null);
   };
-  const pointerDown = () => {
-    setIsMove(true);
-  };
-  const pointerUp = () => {
-    setIsMove(false);
-  };
-  const pointerMove = (e: ThreeEvent<MouseEvent>) => {
-    isMove && setPoint(e.point);
-  };
   const penguinPointerEnter = (e: ThreeEvent<MouseEvent>) => {
+    if (clickTarget) return;
     setPointTarget("penguin");
   };
   const penguinPointerLeave = (e: ThreeEvent<MouseEvent>) => {
     setPointTarget(null);
   };
   const polarPointerEnter = (e: ThreeEvent<MouseEvent>) => {
+    if (clickTarget) return;
     setPointTarget("polar");
   };
   const polarPointerLeave = (e: ThreeEvent<MouseEvent>) => {
@@ -86,8 +79,10 @@ function App() {
       </Btn>
       <Canvas style={{ width: "100%", height: "100%" }} dpr={[1, 2]}>
         <Setting clickTarget={clickTarget} position={positions} />
-        {clickTarget ? null : <MapControls />}
+        <MapControls makeDefault={clickTarget ? false : true} />
+        <primitive object={new THREE.AxesHelper(10)} />
         <ambientLight />
+
         <Suspense fallback={null}>
           <Sky
             ref={sky}
@@ -98,13 +93,12 @@ function App() {
             sunPosition={[1200, 10, -1200]}
             azimuth={90}
           />
-          <Ocean
-            onClick={clickedOcean}
-            onPointerUp={pointerUp}
-            onPointerDown={pointerDown}
-            onPointerMove={pointerMove}
+          <Ocean onClick={clickedOcean} />
+          <Boat
+            position={[0, 0.1, 0]}
+            scale={0.02}
+            userData={{ point, clickTarget }}
           />
-          <Boat position={[0, 0.1, 0]} scale={0.02} userData={{ point }} />
           <Trash position={[0, -1, 0]} scale={0.1} />
           <motion.group
             animate={pointTarget === "polar" ? "hover" : "rest"}

@@ -2,7 +2,9 @@ import * as THREE from "three";
 import React, { useEffect, useRef, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
-import { useFrame } from "@react-three/fiber";
+import { ThreeEvent, useFrame } from "@react-three/fiber";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { trashInfoState } from "../atoms";
 
 interface IMeshes {
   mesh: THREE.Mesh;
@@ -38,6 +40,7 @@ type GLTFResult = GLTF & {
 };
 
 function Trash(props: JSX.IntrinsicElements["group"]) {
+  const [trashInfo, setTrashInfo] = useRecoilState(trashInfoState);
   const { nodes, materials } = useGLTF("assets/gltf/street_garbage.glb") as
     | GLTFResult
     | any;
@@ -69,18 +72,27 @@ function Trash(props: JSX.IntrinsicElements["group"]) {
     return arr;
   }, []);
   useEffect(() => {
+    meshes.forEach((info) => {
+      setTrashInfo((old) => [
+        ...old,
+        { uuid: info.mesh.uuid, position: info.position, contactBoat: false },
+      ]);
+    });
     console.log(trashes.current);
   }, []);
-  // useFrame(({ clock }) => {
-  //   const time = clock.getElapsedTime();
-  //   trashes.current?.children.forEach((trash) => {
-  //     trash.position.set(
-  //       trash.position.x,
-  //       Math.cos(time) * 4 + 4,
-  //       trash.position.z
-  //     );
-  //   });
-  // });
+  useEffect(() => {
+    console.log("닿은걸 감지");
+    const target = trashInfo.filter((info) => info.contactBoat === true);
+    trashes.current?.children.forEach((trash) => {
+      target.forEach((item) => {
+        if (item.uuid === trash.children[0].uuid) {
+          trash.children[0].visible = false;
+        }
+      });
+      // console.log(trash.children);
+    });
+  }, [trashInfo]);
+
   return (
     <group ref={trashes} {...props} dispose={null}>
       {meshes.map(({ mesh, position }) => (
