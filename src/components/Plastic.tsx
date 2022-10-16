@@ -3,7 +3,8 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
-
+import { useRecoilValue } from "recoil";
+import { trashInfoState } from "../atoms";
 type GLTFResult = GLTF & {
   nodes: {
     Object_5: THREE.Mesh;
@@ -18,6 +19,7 @@ type GLTFResult = GLTF & {
 };
 
 function Plastic(props: JSX.IntrinsicElements["group"]) {
+  const trashInfo = useRecoilValue(trashInfoState);
   const { nodes, materials } = useGLTF(
     "assets/gltf/lowpolly_water_bottle.glb"
   ) as GLTFResult | any;
@@ -35,11 +37,24 @@ function Plastic(props: JSX.IntrinsicElements["group"]) {
     return arr;
   }, []);
   const plastic = useRef<THREE.Group>(null);
+
   useEffect(() => {
     plastic.current?.children.forEach((item) => {
       item.rotation.set(Math.random(), Math.random(), Math.random(), "XYZ");
     });
   }, []);
+
+  // 쓰레기 수집량에 따라 플라스틱 수 감소
+  useEffect(() => {
+    let count = 0;
+    trashInfo.forEach((info) => (info.contactBoat === true ? count++ : null));
+    plastic.current?.children.forEach((item, i, arr) => {
+      if (i / arr.length < count / trashInfo.length) {
+        item.visible = false;
+      }
+    });
+  }, [trashInfo]);
+
   useFrame(() => {
     plastic.current?.children.forEach((item) => {
       if (item.position.y < 0) item.position.y = 500;

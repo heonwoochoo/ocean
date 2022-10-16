@@ -35,6 +35,7 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
     trashInfo.forEach((info, i) => {
       // 보트랑 쓰레기가 닿을 경우
       if (
+        info.contactBoat === false &&
         isContactBoat(info.position, boat.current?.position as THREE.Vector3)
       ) {
         const newInfos = [...trashInfo];
