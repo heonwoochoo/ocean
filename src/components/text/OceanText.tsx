@@ -11,7 +11,7 @@ function OceanText() {
   );
   return (
     <Center
-      position={[10, 0.1, 10]}
+      position={[10, 0.7, 10]}
       rotation={[-Math.PI / 2, 0, Math.PI / 4, "XYZ"]}
     >
       <Text fontSize={2} material={mat}>

@@ -10,10 +10,13 @@ import PolarBear from "./components/PolarBear";
 import Sand from "./components/Sand";
 import Penguin from "./components/Penguin";
 import Plastic from "./components/Plastic";
-import TargetText from "./components/TargetText";
+import TargetText from "./components/text/TargetText";
 import { motion } from "framer-motion-3d";
 import styled from "styled-components";
-import OceanText from "./components/OceanText";
+import OceanText from "./components/text/OceanText";
+import PenguinText from "./components/text/PenguinText";
+import PenguinImages from "./components/img/PenguinImages";
+import Overlay from "./components/Overlay";
 type PointTarget = "penguin" | "polar" | null;
 type ClickTarget = "penguin" | "polar" | null;
 const positionState = {
@@ -30,10 +33,10 @@ const variants = {
 
 const Btn = styled.button`
   position: absolute;
-  top: 100px;
+  top: 90%;
   width: 50px;
   height: 50px;
-  z-index: 1;
+  z-index: 2;
 `;
 
 function App() {
@@ -78,6 +81,7 @@ function App() {
       >
         target : null
       </Btn>
+      {clickTarget === "penguin" ? <PenguinText /> : null}
       <Canvas style={{ width: "100%", height: "100%" }} dpr={[1, 2]}>
         <Setting clickTarget={clickTarget} position={positions} />
         <MapControls makeDefault={clickTarget ? false : true} />
@@ -125,6 +129,7 @@ function App() {
               onClick={clickPenguin}
             />
           </motion.group>
+          <PenguinImages userData={positionState} />
           <Plastic position={[0, -1, 0]} scale={0.1} />
           <TargetText
             position={
@@ -135,6 +140,7 @@ function App() {
             userData={{ target: pointTarget }}
           />
           <OceanText />
+          <Overlay />
           <Stats />
         </Suspense>
       </Canvas>
