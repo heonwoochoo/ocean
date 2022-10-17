@@ -33,9 +33,9 @@ function Setting(props: IProps) {
       );
       camera.position.lerp(
         new THREE.Vector3(
-          props.position.penguin["x"] + 4,
+          props.position.penguin["x"] + 6,
           props.position.penguin["y"] + 5,
-          props.position.penguin["z"] + 4
+          props.position.penguin["z"] + 6
         ),
         0.03
       );

@@ -1,13 +1,10 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useTexture, Image } from "@react-three/drei";
 import * as THREE from "three";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 function PenguinImages(props: JSX.IntrinsicElements["mesh"]) {
-  const position = new THREE.Vector3(
-    props.userData?.penguin["x"] + 3.5,
-    props.userData?.penguin["y"] + 3,
-    props.userData?.penguin["z"] + 0.5
-  );
+  const { camera } = useThree();
+
   const loader = useTexture([
     "/assets/images/texture/p1.jpg",
     "/assets/images/texture/p2.png",
@@ -35,13 +32,21 @@ function PenguinImages(props: JSX.IntrinsicElements["mesh"]) {
       window.innerHeight / window.screen.availHeight;
     cube.current?.scale.set(scaleValue, scaleValue, scaleValue);
   }, [window.innerWidth, window.innerHeight]);
-
+  useFrame(({ camera }) => {
+    if (props.userData?.target === "penguin") {
+      cube.current?.position.set(
+        camera.position["x"] - 1,
+        camera.position["y"] - 1,
+        camera.position["z"] - 2
+      );
+    }
+  });
   return (
     <mesh
+      visible={props.userData?.target === "penguin" ? true : false}
       ref={cube}
       geometry={geo}
       material={materialArray}
-      position={position}
     />
   );
 }

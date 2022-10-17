@@ -19,6 +19,7 @@ import PenguinImages from "./components/img/PenguinImages";
 import Overlay from "./components/Overlay";
 type PointTarget = "penguin" | "polar" | null;
 type ClickTarget = "penguin" | "polar" | null;
+
 const positionState = {
   penguin: new THREE.Vector3(-10, 0.7, 10),
   penguinClick: [-10, 10, 10] as Vector3,
@@ -129,7 +130,7 @@ function App() {
               onClick={clickPenguin}
             />
           </motion.group>
-          <PenguinImages userData={positionState} />
+          <PenguinImages userData={{ target: clickTarget }} />
           <Plastic position={[0, -1, 0]} scale={0.1} />
           <TargetText
             position={
@@ -140,7 +141,7 @@ function App() {
             userData={{ target: pointTarget }}
           />
           <OceanText />
-          <Overlay />
+          <Overlay userData={{ target: clickTarget, position: positions }} />
           <Stats />
         </Suspense>
       </Canvas>
