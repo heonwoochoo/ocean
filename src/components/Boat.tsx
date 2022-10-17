@@ -2,8 +2,8 @@ import * as THREE from "three";
 import React, { useEffect, useMemo, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
-import { useFrame, useThree } from "@react-three/fiber";
-import { distance, isContactBoat, value } from "../utils/helper";
+import { useFrame } from "@react-three/fiber";
+import { distance, isContactBoat } from "../utils/helper";
 import { useRecoilState } from "recoil";
 import { trashInfoState } from "../atoms";
 type GLTFResult = GLTF & {
@@ -17,7 +17,7 @@ type GLTFResult = GLTF & {
 
 function Boat(props: JSX.IntrinsicElements["group"]) {
   const [trashInfo, setTrashInfo] = useRecoilState(trashInfoState);
-  const { nodes, materials } = useGLTF("assets/gltf/wooden_boat.glb") as
+  const { nodes, materials } = useGLTF("/assets/gltf/wooden_boat.glb") as
     | GLTFResult
     | any;
   const boat = useRef<THREE.Group>(null);
@@ -61,9 +61,9 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
     );
     if (distance(destinationX, targetX, destinationZ, targetZ) > 0.003) {
       boat.current?.position.set(
-        targetX + (destinationX - targetX) * 0.01,
+        targetX + (destinationX - targetX) * 0.02,
         0.1,
-        targetZ + (destinationZ - targetZ) * 0.01
+        targetZ + (destinationZ - targetZ) * 0.02
       );
     }
   });
@@ -85,4 +85,4 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
 
 export default Boat;
 
-useGLTF.preload("assets/gltf/wooden_boat.glb/wooden_boat.glb");
+useGLTF.preload("/assets/gltf/wooden_boat.glb/wooden_boat.glb");

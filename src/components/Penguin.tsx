@@ -19,13 +19,14 @@ type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 function Penguin(props: JSX.IntrinsicElements["group"]) {
   const group = useRef<THREE.Group>(null);
   const { nodes, materials, animations } = useGLTF(
-    "assets/gltf/penguin2.glb"
+    "/assets/gltf/penguin2.glb"
   ) as GLTFResult | any;
   const { actions } = useAnimations(
     animations,
     group as React.MutableRefObject<THREE.Object3D>
   );
   useEffect(() => {
+    console.log("펭귄", group.current);
     actions["Walk"]?.play();
   }, []);
   return (
@@ -74,4 +75,4 @@ function Penguin(props: JSX.IntrinsicElements["group"]) {
 
 export default Penguin;
 
-useGLTF.preload("assets/gltf/penguin2.glb");
+useGLTF.preload("/assets/gltf/penguin2.glb");

@@ -21,7 +21,7 @@ type GLTFResult = GLTF & {
 function Plastic(props: JSX.IntrinsicElements["group"]) {
   const trashInfo = useRecoilValue(trashInfoState);
   const { nodes, materials } = useGLTF(
-    "assets/gltf/lowpolly_water_bottle.glb"
+    "/assets/gltf/lowpolly_water_bottle.glb"
   ) as GLTFResult | any;
   const positions = useMemo(() => {
     const arr: THREE.Vector3[] = [];
@@ -76,4 +76,4 @@ function Plastic(props: JSX.IntrinsicElements["group"]) {
 
 export default Plastic;
 
-useGLTF.preload("assets/gltf/lowpolly_water_bottle.glb");
+useGLTF.preload("/assets/gltf/lowpolly_water_bottle.glb");

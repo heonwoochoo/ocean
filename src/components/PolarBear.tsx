@@ -20,7 +20,7 @@ type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 
 function PolarBear(props: JSX.IntrinsicElements["group"]) {
   const group = useRef<THREE.Group>(null);
-  const { nodes, materials, animations } = useGLTF("assets/gltf/polar.glb") as
+  const { nodes, materials, animations } = useGLTF("/assets/gltf/polar.glb") as
     | GLTFResult
     | any;
   const { actions } = useAnimations(
@@ -116,4 +116,4 @@ function PolarBear(props: JSX.IntrinsicElements["group"]) {
 
 export default PolarBear;
 
-useGLTF.preload("assets/gltf//polar.glb");
+useGLTF.preload("/assets/gltf/polar.glb");

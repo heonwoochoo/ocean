@@ -1,6 +1,6 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
-import { Canvas, ThreeEvent, useFrame, Vector3 } from "@react-three/fiber";
-import { Box, MapControls, OrbitControls, Sky, Stats } from "@react-three/drei";
+import React, { Suspense, useRef, useState } from "react";
+import { Canvas, ThreeEvent, Vector3 } from "@react-three/fiber";
+import { MapControls, Sky, Stats } from "@react-three/drei";
 import * as THREE from "three";
 import Setting from "./Setting";
 import Ocean from "./components/Ocean";
@@ -13,10 +13,11 @@ import Plastic from "./components/Plastic";
 import TargetText from "./components/TargetText";
 import { motion } from "framer-motion-3d";
 import styled from "styled-components";
+import OceanText from "./components/OceanText";
 type PointTarget = "penguin" | "polar" | null;
 type ClickTarget = "penguin" | "polar" | null;
 const positionState = {
-  penguin: new THREE.Vector3(-10, 1.7, 10),
+  penguin: new THREE.Vector3(-10, 0.7, 10),
   penguinClick: [-10, 10, 10] as Vector3,
   polar: new THREE.Vector3(10, 1.5, -10),
   polarClick: [10, 10, -10] as Vector3,
@@ -82,7 +83,6 @@ function App() {
         <MapControls makeDefault={clickTarget ? false : true} />
         <primitive object={new THREE.AxesHelper(10)} />
         <ambientLight />
-
         <Suspense fallback={null}>
           <Sky
             ref={sky}
@@ -110,10 +110,9 @@ function App() {
               onPointerEnter={polarPointerEnter}
               onPointerLeave={polarPointerLeave}
               onClick={clickPolar}
-              userData={{ target: pointTarget }}
             />
           </motion.group>
-          <Sand position={[-10, 1.5, 10]} scale={5} />
+          <Sand position={[-10, 0.3, 10]} scale={5} />
           <motion.group
             animate={pointTarget === "penguin" ? "hover" : "rest"}
             variants={variants}
@@ -135,6 +134,7 @@ function App() {
             }
             userData={{ target: pointTarget }}
           />
+          <OceanText />
           <Stats />
         </Suspense>
       </Canvas>

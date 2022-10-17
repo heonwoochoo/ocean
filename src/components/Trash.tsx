@@ -2,8 +2,7 @@ import * as THREE from "three";
 import React, { useEffect, useRef, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
-import { ThreeEvent, useFrame } from "@react-three/fiber";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { trashInfoState } from "../atoms";
 
 interface IMeshes {
@@ -41,7 +40,7 @@ type GLTFResult = GLTF & {
 
 function Trash(props: JSX.IntrinsicElements["group"]) {
   const [trashInfo, setTrashInfo] = useRecoilState(trashInfoState);
-  const { nodes, materials } = useGLTF("assets/gltf/street_garbage.glb") as
+  const { nodes, materials } = useGLTF("/assets/gltf/street_garbage.glb") as
     | GLTFResult
     | any;
   const trashes = useRef<THREE.Group>(null);
@@ -110,4 +109,4 @@ function Trash(props: JSX.IntrinsicElements["group"]) {
 
 export default Trash;
 
-useGLTF.preload("assets/gltf/street_garbage.glb");
+useGLTF.preload("/assets/gltf/street_garbage.glb");
