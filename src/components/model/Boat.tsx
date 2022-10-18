@@ -3,9 +3,9 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
-import { distance, isContactBoat } from "../utils/helper";
+import { distance, isContactBoat } from "../../utils/helper";
 import { useRecoilState } from "recoil";
-import { trashInfoState } from "../atoms";
+import { trashInfoState } from "../../atoms";
 type GLTFResult = GLTF & {
   nodes: {
     Object_2: THREE.Mesh;

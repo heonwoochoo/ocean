@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { textAnimationFinish } from "../../atoms";
 
 const Container = styled.div`
   position: absolute;
@@ -48,6 +50,7 @@ const BodyText = styled.p`
 `;
 
 function PenguinText() {
+  const setTextAniEnd = useSetRecoilState(textAnimationFinish);
   return (
     <Container>
       <Header
@@ -61,6 +64,13 @@ function PenguinText() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.5, duration: 1 }}
+        onAnimationEnd={() => {
+          console.log("애니끝");
+        }}
+        onAnimationStart={() => {
+          console.log("애니시작");
+          setTextAniEnd(true);
+        }}
       >
         <SmallHeader>"펭귄이 위험한가요?"</SmallHeader>
         <BodyTextContainer>

@@ -12,3 +12,8 @@ export const trashInfoState = atom<ITrash[]>({
   key: "trashInfo",
   default: [],
 });
+
+export const textAnimationFinish = atom<boolean>({
+  key: "textAnimation",
+  default: false,
+});

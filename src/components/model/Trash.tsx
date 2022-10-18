@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useRecoilState } from "recoil";
-import { trashInfoState } from "../atoms";
+import { trashInfoState } from "../../atoms";
 
 interface IMeshes {
   mesh: THREE.Mesh;
