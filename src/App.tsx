@@ -19,6 +19,8 @@ import PenguinImages from "./components/img/PenguinImages";
 import Overlay from "./components/model/Overlay";
 import { useRecoilState } from "recoil";
 import { textAnimationFinish } from "./atoms";
+import PolarText from "./components/text/PolarText";
+import PolarImages from "./components/img/PolarImages";
 type PointTarget = "penguin" | "polar" | null;
 type ClickTarget = "penguin" | "polar" | null;
 
@@ -98,6 +100,7 @@ function App() {
         </BackBtn>
       ) : null}
       {clickTarget === "penguin" ? <PenguinText /> : null}
+      {clickTarget === "polar" ? <PolarText /> : null}
       <Canvas style={{ width: "100%", height: "100%" }} dpr={[1, 2]}>
         <Setting clickTarget={clickTarget} position={positions} />
         <MapControls enabled={clickTarget ? false : true} />
@@ -146,6 +149,7 @@ function App() {
             />
           </motion.group>
           <PenguinImages userData={{ target: clickTarget }} />
+          <PolarImages userData={{ target: clickTarget }} />
           <Plastic position={[0, -1, 0]} scale={0.1} />
           <TargetText
             position={
