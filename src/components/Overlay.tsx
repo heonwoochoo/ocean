@@ -1,8 +1,15 @@
 import { useFrame, useThree } from "@react-three/fiber";
+import { motion } from "framer-motion-3d";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-function Overlay(props: JSX.IntrinsicElements["mesh"]) {
-  const overlay = useRef<THREE.Mesh>(null);
+
+const variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 0.7 },
+};
+
+function Overlay(props: JSX.IntrinsicElements["group"]) {
+  const overlay = useRef<THREE.Group>(null);
   useFrame(({ camera }) => {
     if (props.userData?.target) {
       overlay.current?.lookAt(camera.position);
@@ -15,14 +22,21 @@ function Overlay(props: JSX.IntrinsicElements["mesh"]) {
   });
 
   return (
-    <mesh
-      visible={props.userData?.target ? true : false}
-      ref={overlay}
-      {...props}
-    >
-      <planeGeometry args={[10, 10, 10]} />
-      <meshBasicMaterial transparent={true} color="black" opacity={0.7} />
-    </mesh>
+    <group {...props} ref={overlay}>
+      {props.userData?.target ? (
+        <mesh>
+          <planeGeometry args={[10, 10, 10]} />
+          <motion.meshBasicMaterial
+            transparent={true}
+            color="black"
+            initial="hidden"
+            animate="visible"
+            variants={variants}
+            transition={{ delay: 1.5, duration: 0.5 }}
+          />
+        </mesh>
+      ) : null}
+    </group>
   );
 }
 

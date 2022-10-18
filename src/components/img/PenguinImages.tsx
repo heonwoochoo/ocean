@@ -1,10 +1,15 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useTexture, Image } from "@react-three/drei";
+import { useTexture, Image, MapControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-function PenguinImages(props: JSX.IntrinsicElements["mesh"]) {
-  const { camera } = useThree();
+import { motion } from "framer-motion-3d";
 
+const variants = {
+  hidden: { scale: 0 },
+  visible: { scale: 0.9 },
+};
+
+function PenguinImages(props: JSX.IntrinsicElements["group"]) {
   const loader = useTexture([
     "/assets/images/texture/p1.jpg",
     "/assets/images/texture/p2.png",
@@ -24,7 +29,7 @@ function PenguinImages(props: JSX.IntrinsicElements["mesh"]) {
     []
   );
   const geo = useMemo(() => new THREE.BoxGeometry(0.7, 0.7, 0.7), []);
-  const cube = useRef<THREE.Mesh>(null);
+  const cube = useRef<THREE.Group>(null);
   useEffect(() => {
     console.log(cube.current);
     const scaleValue =
@@ -32,22 +37,30 @@ function PenguinImages(props: JSX.IntrinsicElements["mesh"]) {
       window.innerHeight / window.screen.availHeight;
     cube.current?.scale.set(scaleValue, scaleValue, scaleValue);
   }, [window.innerWidth, window.innerHeight]);
-  useFrame(({ camera }) => {
+  useFrame(({ camera, clock }) => {
     if (props.userData?.target === "penguin") {
+      const time = clock.getElapsedTime();
       cube.current?.position.set(
         camera.position["x"] - 1,
         camera.position["y"] - 1,
         camera.position["z"] - 2
       );
+      cube.current?.rotation.set(0, time * 0.2, 0);
     }
   });
   return (
-    <mesh
-      visible={props.userData?.target === "penguin" ? true : false}
-      ref={cube}
-      geometry={geo}
-      material={materialArray}
-    />
+    <group ref={cube}>
+      {props.userData?.target === "penguin" ? (
+        <motion.mesh
+          geometry={geo}
+          material={materialArray}
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 2.5, duration: 1 }}
+        />
+      ) : null}
+    </group>
   );
 }
 

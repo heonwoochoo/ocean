@@ -85,7 +85,7 @@ function App() {
       {clickTarget === "penguin" ? <PenguinText /> : null}
       <Canvas style={{ width: "100%", height: "100%" }} dpr={[1, 2]}>
         <Setting clickTarget={clickTarget} position={positions} />
-        <MapControls makeDefault={clickTarget ? false : true} />
+        <MapControls enabled={clickTarget ? false : true} />
         <primitive object={new THREE.AxesHelper(10)} />
         <ambientLight />
         <Suspense fallback={null}>
