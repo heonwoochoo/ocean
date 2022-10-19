@@ -18,9 +18,10 @@ import PenguinText from "./components/text/PenguinText";
 import PenguinImages from "./components/img/PenguinImages";
 import Overlay from "./components/model/Overlay";
 import { useRecoilState } from "recoil";
-import { textAnimationFinish } from "./atoms";
+import { clickedEarthState, textAnimationFinish } from "./atoms";
 import PolarText from "./components/text/PolarText";
 import PolarImages from "./components/img/PolarImages";
+import Earth from "./components/model/Earth";
 type PointTarget = "penguin" | "polar" | null;
 type ClickTarget = "penguin" | "polar" | null;
 
@@ -29,6 +30,7 @@ const positionState = {
   penguinClick: [-10, 10, 10] as Vector3,
   polar: new THREE.Vector3(10, 1.5, -10),
   polarClick: [10, 10, -10] as Vector3,
+  earth: new THREE.Vector3(150, 100, 150),
 };
 
 const variants = {
@@ -57,6 +59,7 @@ function App() {
   const [clickTarget, setClickTarget] = useState<ClickTarget>(null);
   const [positions, setPositions] = useState(positionState);
   const [textAniEnd, setTextAniEnd] = useRecoilState(textAnimationFinish);
+  const [clickedEarth, setClickedEarth] = useRecoilState(clickedEarthState);
   const clickedOcean = (e: ThreeEvent<MouseEvent>) => {
     if (clickTarget) return;
     setPoint(e.point);
@@ -84,7 +87,7 @@ function App() {
     console.log("펭귄 클릭");
     setClickTarget("penguin");
   };
-  console.log(textAniEnd);
+
   return (
     <>
       {textAniEnd ? (
@@ -103,10 +106,11 @@ function App() {
       {clickTarget === "polar" ? <PolarText /> : null}
       <Canvas style={{ width: "100%", height: "100%" }} dpr={[1, 2]}>
         <Setting clickTarget={clickTarget} position={positions} />
-        <MapControls enabled={clickTarget ? false : true} />
+        <MapControls enabled={clickTarget || !clickedEarth ? false : true} />
         <primitive object={new THREE.AxesHelper(10)} />
         <ambientLight />
         <Suspense fallback={null}>
+          <Earth position={positions.earth} />
           <Sky
             ref={sky}
             turbidity={10}

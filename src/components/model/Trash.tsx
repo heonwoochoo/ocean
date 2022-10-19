@@ -70,6 +70,7 @@ function Trash(props: JSX.IntrinsicElements["group"]) {
     });
     return arr;
   }, []);
+
   useEffect(() => {
     meshes.forEach((info) => {
       setTrashInfo((old) => [
@@ -79,6 +80,8 @@ function Trash(props: JSX.IntrinsicElements["group"]) {
     });
     console.log(trashes.current);
   }, []);
+
+  // 보트와 쓰레기가 닿을 경우 쓰레기를 숨김처리
   useEffect(() => {
     console.log("닿은걸 감지");
     const target = trashInfo.filter((info) => info.contactBoat === true);

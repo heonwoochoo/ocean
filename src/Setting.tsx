@@ -1,6 +1,8 @@
 import { useFrame, useThree, Vector3 } from "@react-three/fiber";
 import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
 import * as THREE from "three";
+import { clickedEarthState } from "./atoms";
 interface IProps {
   clickTarget: "penguin" | "polar" | null;
   position: {
@@ -8,20 +10,26 @@ interface IProps {
     penguinClick: Vector3;
     polar: THREE.Vector3;
     polarClick: Vector3;
+    earth: THREE.Vector3;
   };
 }
 
 function Setting(props: IProps) {
   const { camera, gl } = useThree();
+  const clickedEarth = useRecoilValue(clickedEarthState);
   useEffect(() => {
-    if (props.clickTarget === null) {
+    if (props.clickTarget === null && clickedEarth === true) {
       camera.position.set(20, 30, 20);
       camera.lookAt(0, 0, 0);
+    } else if (clickedEarth === false) {
+      camera.position.set(
+        props.position.earth["x"] + 20,
+        props.position.earth["y"] + 20,
+        props.position.earth["z"] + 20
+      );
+      camera.lookAt(props.position.earth); // 지구를 바라봄
     }
-
-    console.log(gl.info);
-    console.log(props.clickTarget);
-  }, [props.clickTarget]);
+  }, [props.clickTarget, clickedEarth]);
 
   useFrame(({ gl, camera }) => {
     gl.setSize(window.innerWidth, window.innerHeight);

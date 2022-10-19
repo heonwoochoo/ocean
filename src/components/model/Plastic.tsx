@@ -23,6 +23,8 @@ function Plastic(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
     "/assets/gltf/lowpolly_water_bottle.glb"
   ) as GLTFResult | any;
+
+  // 범위 내 랜덤으로 포지션 생성
   const positions = useMemo(() => {
     const arr: THREE.Vector3[] = [];
     for (let i = 0; i < 50; i++) {
@@ -55,6 +57,7 @@ function Plastic(props: JSX.IntrinsicElements["group"]) {
     });
   }, [trashInfo]);
 
+  // 플라스틱의 하락을 반복
   useFrame(() => {
     plastic.current?.children.forEach((item) => {
       if (item.position.y < 0) item.position.y = 500;

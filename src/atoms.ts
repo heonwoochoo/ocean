@@ -17,3 +17,8 @@ export const textAnimationFinish = atom<boolean>({
   key: "textAnimation",
   default: false,
 });
+
+export const clickedEarthState = atom<boolean>({
+  key: "earth",
+  default: false,
+});

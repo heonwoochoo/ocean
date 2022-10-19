@@ -5,7 +5,8 @@ import { GLTF } from "three-stdlib";
 import { useFrame } from "@react-three/fiber";
 import { distance, isContactBoat } from "../../utils/helper";
 import { useRecoilState } from "recoil";
-import { trashInfoState } from "../../atoms";
+import { clickedEarthState, trashInfoState } from "../../atoms";
+import { motion } from "framer-motion-3d";
 type GLTFResult = GLTF & {
   nodes: {
     Object_2: THREE.Mesh;
@@ -17,11 +18,13 @@ type GLTFResult = GLTF & {
 
 function Boat(props: JSX.IntrinsicElements["group"]) {
   const [trashInfo, setTrashInfo] = useRecoilState(trashInfoState);
+  const [clickedEarth, setClickedEarth] = useRecoilState(clickedEarthState);
   const { nodes, materials } = useGLTF("/assets/gltf/wooden_boat.glb") as
     | GLTFResult
     | any;
   const boat = useRef<THREE.Group>(null);
 
+  // 동물을 클릭하면 보트를 숨김 처리
   useEffect(() => {
     if (props.userData?.clickTarget) {
       boat.current!.visible = false;
@@ -74,9 +77,13 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
       materials.IND_WoodenBoat_01_SM
     );
   }, []);
+
   return (
     <group {...props} ref={boat} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
+      <group
+        rotation={[-Math.PI / 2, 0, 0]}
+        visible={clickedEarth ? true : false}
+      >
         <primitive object={mesh} />
       </group>
     </group>
