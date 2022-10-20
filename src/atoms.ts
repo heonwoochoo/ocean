@@ -1,6 +1,5 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 import * as THREE from "three";
-import { GLTFLoader } from "three-stdlib";
 
 interface ITrash {
   uuid: string;
@@ -20,5 +19,10 @@ export const textAnimationFinish = atom<boolean>({
 
 export const clickedEarthState = atom<boolean>({
   key: "earth",
+  default: false,
+});
+
+export const mouseOnEarthState = atom<boolean>({
+  key: "mouseOnEarth",
   default: false,
 });

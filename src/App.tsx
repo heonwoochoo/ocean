@@ -17,11 +17,13 @@ import OceanText from "./components/text/OceanText";
 import PenguinText from "./components/text/PenguinText";
 import PenguinImages from "./components/img/PenguinImages";
 import Overlay from "./components/model/Overlay";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { clickedEarthState, textAnimationFinish } from "./atoms";
 import PolarText from "./components/text/PolarText";
 import PolarImages from "./components/img/PolarImages";
 import Earth from "./components/model/Earth";
+import Star from "./components/model/Star";
+import Title from "./components/text/Title";
 type PointTarget = "penguin" | "polar" | null;
 type ClickTarget = "penguin" | "polar" | null;
 
@@ -30,7 +32,7 @@ const positionState = {
   penguinClick: [-10, 10, 10] as Vector3,
   polar: new THREE.Vector3(10, 1.5, -10),
   polarClick: [10, 10, -10] as Vector3,
-  earth: new THREE.Vector3(150, 100, 150),
+  earth: new THREE.Vector3(1500, 700, 1500),
 };
 
 const variants = {
@@ -65,29 +67,18 @@ function App() {
     setPoint(e.point);
     // setClickTarget(null);
   };
-  const penguinPointerEnter = (e: ThreeEvent<MouseEvent>) => {
+  const penguinPointerEnter = () => {
     if (clickTarget) return;
     setPointTarget("penguin");
   };
-  const penguinPointerLeave = (e: ThreeEvent<MouseEvent>) => {
-    setPointTarget(null);
-  };
-  const polarPointerEnter = (e: ThreeEvent<MouseEvent>) => {
+  const penguinPointerLeave = () => setPointTarget(null);
+  const polarPointerEnter = () => {
     if (clickTarget) return;
     setPointTarget("polar");
   };
-  const polarPointerLeave = (e: ThreeEvent<MouseEvent>) => {
-    setPointTarget(null);
-  };
-  const clickPolar = (e: ThreeEvent<MouseEvent>) => {
-    console.log("폴라 클릭");
-    setClickTarget("polar");
-  };
-  const clickPenguin = (e: ThreeEvent<MouseEvent>) => {
-    console.log("펭귄 클릭");
-    setClickTarget("penguin");
-  };
-
+  const polarPointerLeave = () => setPointTarget(null);
+  const clickPolar = () => setClickTarget("polar");
+  const clickPenguin = () => setClickTarget("penguin");
   return (
     <>
       {textAniEnd ? (
@@ -104,12 +95,13 @@ function App() {
       ) : null}
       {clickTarget === "penguin" ? <PenguinText /> : null}
       {clickTarget === "polar" ? <PolarText /> : null}
+      <Title />
       <Canvas style={{ width: "100%", height: "100%" }} dpr={[1, 2]}>
         <Setting clickTarget={clickTarget} position={positions} />
         <MapControls enabled={clickTarget || !clickedEarth ? false : true} />
-        <primitive object={new THREE.AxesHelper(10)} />
-        <ambientLight />
+        <ambientLight position={positions.earth} />
         <Suspense fallback={null}>
+          <Star position={positions.earth} />
           <Earth position={positions.earth} />
           <Sky
             ref={sky}
@@ -164,6 +156,7 @@ function App() {
             userData={{ target: pointTarget }}
           />
           <OceanText />
+
           <Overlay userData={{ target: clickTarget, position: positions }} />
           <Stats />
         </Suspense>

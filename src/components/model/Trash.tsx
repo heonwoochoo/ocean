@@ -78,12 +78,10 @@ function Trash(props: JSX.IntrinsicElements["group"]) {
         { uuid: info.mesh.uuid, position: info.position, contactBoat: false },
       ]);
     });
-    console.log(trashes.current);
   }, []);
 
   // 보트와 쓰레기가 닿을 경우 쓰레기를 숨김처리
   useEffect(() => {
-    console.log("닿은걸 감지");
     const target = trashInfo.filter((info) => info.contactBoat === true);
     trashes.current?.children.forEach((trash) => {
       target.forEach((item) => {
@@ -91,7 +89,6 @@ function Trash(props: JSX.IntrinsicElements["group"]) {
           trash.children[0].visible = false;
         }
       });
-      // console.log(trash.children);
     });
   }, [trashInfo]);
 

@@ -26,7 +26,6 @@ function Penguin(props: JSX.IntrinsicElements["group"]) {
     group as React.MutableRefObject<THREE.Object3D>
   );
   useEffect(() => {
-    console.log("펭귄", group.current);
     actions["Walk"]?.play();
   }, []);
   return (

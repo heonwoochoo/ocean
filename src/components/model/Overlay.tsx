@@ -25,7 +25,7 @@ function Overlay(props: JSX.IntrinsicElements["group"]) {
     <group {...props} ref={overlay}>
       {props.userData?.target ? (
         <mesh>
-          <planeGeometry args={[10, 10, 10]} />
+          <planeGeometry args={[100, 100]} />
           <motion.meshBasicMaterial
             transparent={true}
             color="black"

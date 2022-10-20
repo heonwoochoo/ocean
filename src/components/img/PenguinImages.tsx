@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useTexture, Image, MapControls } from "@react-three/drei";
+import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion-3d";
 
 const variants = {
@@ -31,7 +31,7 @@ function PenguinImages(props: JSX.IntrinsicElements["group"]) {
   const geo = useMemo(() => new THREE.BoxGeometry(0.7, 0.7, 0.7), []);
   const cube = useRef<THREE.Group>(null);
   useEffect(() => {
-    console.log(cube.current);
+    // 창 크기에 따라 큐브 스케일을 조정
     const scaleValue =
       window.innerWidth / window.screen.availWidth +
       window.innerHeight / window.screen.availHeight;

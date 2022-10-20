@@ -1,5 +1,5 @@
 import { useFrame, useThree, Vector3 } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import * as THREE from "three";
 import { clickedEarthState } from "./atoms";
@@ -17,8 +17,13 @@ interface IProps {
 function Setting(props: IProps) {
   const { camera, gl } = useThree();
   const clickedEarth = useRecoilValue(clickedEarthState);
+  const [timer, setTimer] = useState(true); // 카메라 위치 조정 타이머(2초 설정)
   useEffect(() => {
-    if (props.clickTarget === null && clickedEarth === true) {
+    if (
+      props.clickTarget === null &&
+      clickedEarth === true &&
+      timer === false
+    ) {
       camera.position.set(20, 30, 20);
       camera.lookAt(0, 0, 0);
     } else if (clickedEarth === false) {
@@ -29,8 +34,13 @@ function Setting(props: IProps) {
       );
       camera.lookAt(props.position.earth); // 지구를 바라봄
     }
-  }, [props.clickTarget, clickedEarth]);
-
+    if (clickedEarth) {
+      const time = setTimeout(() => {
+        setTimer(false);
+        clearTimeout(time);
+      }, 700);
+    }
+  }, [props.clickTarget, clickedEarth, timer]);
   useFrame(({ gl, camera }) => {
     gl.setSize(window.innerWidth, window.innerHeight);
     if (props.clickTarget === "penguin") {
@@ -61,6 +71,14 @@ function Setting(props: IProps) {
         ),
         0.01
       );
+    } else if (
+      props.clickTarget === null &&
+      clickedEarth === true &&
+      timer === true
+    ) {
+      if (timer) {
+        camera.position.lerp(props.position.earth, 0.0001);
+      }
     }
   });
   return null;
