@@ -1,12 +1,12 @@
 import * as THREE from "three";
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { motion } from "framer-motion-3d";
 import { ThreeEvent, useFrame } from "@react-three/fiber";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { clickedEarthState, mouseOnEarthState } from "../../atoms";
-import { animate, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -33,6 +33,8 @@ function Earth(props: JSX.IntrinsicElements["group"]) {
   const handleEarthClick = (e: ThreeEvent<MouseEvent>) => {
     setClickedEarth(true);
   };
+
+  // 지구의 자전
   useFrame(({ clock }) => {
     if (clickedEarth === false) {
       const time = clock.getElapsedTime() * 0.1;

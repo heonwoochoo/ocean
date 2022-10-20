@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion-3d";
+import useResizeCube from "../../hooks/useResizeCube";
 
 const variants = {
   hidden: { scale: 0 },
@@ -30,13 +31,7 @@ function PenguinImages(props: JSX.IntrinsicElements["group"]) {
   );
   const geo = useMemo(() => new THREE.BoxGeometry(0.7, 0.7, 0.7), []);
   const cube = useRef<THREE.Group>(null);
-  useEffect(() => {
-    // 창 크기에 따라 큐브 스케일을 조정
-    const scaleValue =
-      window.innerWidth / window.screen.availWidth +
-      window.innerHeight / window.screen.availHeight;
-    cube.current?.scale.set(scaleValue, scaleValue, scaleValue);
-  }, [window.innerWidth, window.innerHeight]);
+  useResizeCube(cube);
   useFrame(({ camera, clock }) => {
     if (props.userData?.target === "penguin") {
       const time = clock.getElapsedTime();

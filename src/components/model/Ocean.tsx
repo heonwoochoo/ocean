@@ -22,6 +22,7 @@ water.rotateX(-Math.PI / 2);
 // water.material.transparent = true;
 
 function Ocean(props: JSX.IntrinsicElements["group"]) {
+  // 물결이 흘러가는 정도
   useFrame(() => {
     water.material.uniforms["time"].value += 0.3 / 60;
   });

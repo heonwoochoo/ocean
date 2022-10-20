@@ -1,8 +1,8 @@
 import { useFrame, useThree, Vector3 } from "@react-three/fiber";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import * as THREE from "three";
-import { clickedEarthState } from "./atoms";
+import { clickedEarthState, timerState } from "./atoms";
 interface IProps {
   clickTarget: "penguin" | "polar" | null;
   position: {
@@ -17,7 +17,7 @@ interface IProps {
 function Setting(props: IProps) {
   const { camera, gl } = useThree();
   const clickedEarth = useRecoilValue(clickedEarthState);
-  const [timer, setTimer] = useState(true); // 카메라 위치 조정 타이머(2초 설정)
+  const [timer, setTimer] = useRecoilState(timerState); // 카메라 위치 조정 타이머(2초 설정)
   useEffect(() => {
     if (
       props.clickTarget === null &&

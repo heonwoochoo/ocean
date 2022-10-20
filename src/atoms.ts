@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import * as THREE from "three";
 
-interface ITrash {
+export interface ITrash {
   uuid: string;
   position: THREE.Vector3;
   contactBoat: boolean;
@@ -25,4 +25,9 @@ export const clickedEarthState = atom<boolean>({
 export const mouseOnEarthState = atom<boolean>({
   key: "mouseOnEarth",
   default: false,
+});
+
+export const timerState = atom<boolean>({
+  key: "timer",
+  default: true,
 });

@@ -49,7 +49,7 @@ const BodyText = styled.p`
   color: #bdc3c7;
 `;
 
-function PolarText() {
+function PenguinText() {
   const setTextAniEnd = useSetRecoilState(textAnimationFinish);
   return (
     <Container>
@@ -58,34 +58,30 @@ function PolarText() {
         animate={{ y: 0, scale: 1 }}
         transition={{ delay: 1.7, duration: 1 }}
       >
-        북극곰의 위기
+        펭귄에게 무슨 일이?
       </Header>
       <TextContents
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.5, duration: 1 }}
-        onAnimationEnd={() => {
-          console.log("애니끝");
-        }}
         onAnimationStart={() => {
-          console.log("애니시작");
           setTextAniEnd(true);
         }}
       >
-        <SmallHeader>"최근 20년 사이 북극의 빙하 면적 50% 감소"</SmallHeader>
+        <SmallHeader>"펭귄이 위험한가요?"</SmallHeader>
         <BodyTextContainer>
-          <BodyText>북극곰의 주 서식지이자 사냥터인 빙하는</BodyText>
-          <BodyText>지금 이 순간에도 녹아 내리고 있습니다.</BodyText>
+          <BodyText>지금 남극에는 이상기후 현상으로 눈 대신 비가 내려</BodyText>
+          <BodyText>새끼 펭귄들이 저체온증으로 죽어가고 있으며,</BodyText>
+          <BodyText>빙하가 녹아 펭귄들이 서식지를 잃어가고 있습니다.</BodyText>
           <BodyText>
-            이대로 빙하가 사라진다면 굶주려 죽거나, 먹이를 찾아 민가로 내려와
+            지구 온난화로 인한 피해를 가장 현실적으로 보여주는
           </BodyText>
-          <BodyText>인간과의 갈등을 초래하는 일이 빈번해 질 것입니다.</BodyText>
-          <BodyText>이렇듯, 여전히 기후 변화와 북극곰의 멸종위기는 </BodyText>
-          <BodyText>현재 진행형 문제입니다.</BodyText>
+          <BodyText>생태 피해 동물 중 하나인 펭귄은</BodyText>
+          <BodyText>자연이 우리에게 주는 경고이자 우리의 미래입니다.</BodyText>
         </BodyTextContainer>
       </TextContents>
     </Container>
   );
 }
 
-export default PolarText;
+export default PenguinText;

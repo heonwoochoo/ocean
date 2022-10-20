@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { Canvas, ThreeEvent, Vector3 } from "@react-three/fiber";
 import { MapControls, Sky, Stats } from "@react-three/drei";
 import * as THREE from "three";
@@ -10,22 +10,23 @@ import PolarBear from "./components/model/PolarBear";
 import Sand from "./components/model/Sand";
 import Penguin from "./components/model/Penguin";
 import Plastic from "./components/model/Plastic";
-import TargetText from "./components/text/TargetText";
+import TargetText from "./components/ui/TargetText";
 import { motion } from "framer-motion-3d";
 import styled from "styled-components";
-import OceanText from "./components/text/OceanText";
-import PenguinText from "./components/text/PenguinText";
+import OceanText from "./components/ui/OceanText";
+import PenguinText from "./components/ui/PenguinText";
 import PenguinImages from "./components/img/PenguinImages";
 import Overlay from "./components/model/Overlay";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { clickedEarthState, textAnimationFinish } from "./atoms";
-import PolarText from "./components/text/PolarText";
+import PolarText from "./components/ui/PolarText";
 import PolarImages from "./components/img/PolarImages";
 import Earth from "./components/model/Earth";
 import Star from "./components/model/Star";
-import Title from "./components/text/Title";
-type PointTarget = "penguin" | "polar" | null;
-type ClickTarget = "penguin" | "polar" | null;
+import Title from "./components/ui/Title";
+import Loader from "./components/ui/Loader";
+export type PointTarget = "penguin" | "polar" | null;
+export type ClickTarget = "penguin" | "polar" | null;
 
 const positionState = {
   penguin: new THREE.Vector3(-10, 0.7, 10),
@@ -100,7 +101,7 @@ function App() {
         <Setting clickTarget={clickTarget} position={positions} />
         <MapControls enabled={clickTarget || !clickedEarth ? false : true} />
         <ambientLight position={positions.earth} />
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loader />}>
           <Star position={positions.earth} />
           <Earth position={positions.earth} />
           <Sky
@@ -158,7 +159,6 @@ function App() {
           <OceanText />
 
           <Overlay userData={{ target: clickTarget, position: positions }} />
-          <Stats />
         </Suspense>
       </Canvas>
     </>

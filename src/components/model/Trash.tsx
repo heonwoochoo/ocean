@@ -1,14 +1,11 @@
 import * as THREE from "three";
-import React, { useEffect, useRef, useMemo } from "react";
+import React, { useEffect, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useRecoilState } from "recoil";
 import { trashInfoState } from "../../atoms";
-
-interface IMeshes {
-  mesh: THREE.Mesh;
-  position: THREE.Vector3;
-}
+import useRemoveTrash from "../../hooks/useRemoveTrash";
+import useMakeTrash from "../../hooks/useMakeTrash";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -44,33 +41,7 @@ function Trash(props: JSX.IntrinsicElements["group"]) {
     | GLTFResult
     | any;
   const trashes = useRef<THREE.Group>(null);
-  const meshes = useMemo<IMeshes[]>(() => {
-    const arr: IMeshes[] = [];
-    Object.keys(nodes).forEach((v) => {
-      if (nodes[v].isMesh) {
-        arr.push(
-          {
-            mesh: new THREE.Mesh(nodes[v].geometry, materials.garbage),
-            position: new THREE.Vector3(
-              (Math.random() - 0.5) * 1200,
-              10,
-              (Math.random() - 0.5) * 1200
-            ),
-          },
-          {
-            mesh: new THREE.Mesh(nodes[v].geometry, materials.garbage),
-            position: new THREE.Vector3(
-              (Math.random() - 0.5) * 1200,
-              10,
-              (Math.random() - 0.5) * 1200
-            ),
-          }
-        );
-      }
-    });
-    return arr;
-  }, []);
-
+  const meshes = useMakeTrash(nodes, materials);
   useEffect(() => {
     meshes.forEach((info) => {
       setTrashInfo((old) => [
@@ -80,17 +51,7 @@ function Trash(props: JSX.IntrinsicElements["group"]) {
     });
   }, []);
 
-  // 보트와 쓰레기가 닿을 경우 쓰레기를 숨김처리
-  useEffect(() => {
-    const target = trashInfo.filter((info) => info.contactBoat === true);
-    trashes.current?.children.forEach((trash) => {
-      target.forEach((item) => {
-        if (item.uuid === trash.children[0].uuid) {
-          trash.children[0].visible = false;
-        }
-      });
-    });
-  }, [trashInfo]);
+  useRemoveTrash(trashInfo, trashes);
 
   return (
     <group ref={trashes} {...props} dispose={null}>
