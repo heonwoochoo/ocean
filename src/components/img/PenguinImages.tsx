@@ -13,7 +13,7 @@ const variants = {
 function PenguinImages(props: JSX.IntrinsicElements["group"]) {
   const loader = useTexture([
     "/assets/images/texture/p1.jpg",
-    "/assets/images/texture/p2.png",
+    "/assets/images/texture/p2.jpg",
     "/assets/images/texture/p3.jpg",
     "/assets/images/texture/p4.jpg",
     "/assets/images/texture/p5.jpg",

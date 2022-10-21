@@ -12,7 +12,7 @@ type GLTFResult = GLTF & {
     Object_2: THREE.Mesh;
   };
   materials: {
-    IND_WoodenBoat_01_SM: THREE.MeshStandardMaterial;
+    ["IND_WoodenBoat_01_SM.003"]: THREE.MeshStandardMaterial;
   };
 };
 
@@ -25,7 +25,7 @@ function Boat(props: JSX.IntrinsicElements["group"]) {
   const mesh = useMemo(() => {
     return new THREE.Mesh(
       nodes.Object_2.geometry,
-      materials.IND_WoodenBoat_01_SM
+      materials["IND_WoodenBoat_01_SM.003"]
     );
   }, []);
   useHideBoat(boat, props.userData?.clickTarget);

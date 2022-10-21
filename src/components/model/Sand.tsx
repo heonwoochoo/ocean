@@ -1,34 +1,17 @@
 import * as THREE from "three";
-import { useGLTF } from "@react-three/drei";
-import { GLTF } from "three-stdlib";
-
-type GLTFResult = GLTF & {
-  nodes: {
-    Object_2: THREE.Mesh;
-  };
-  materials: {
-    ["TextureAtlas_0.001"]: THREE.MeshStandardMaterial;
-  };
-};
+import { useMemo } from "react";
 
 function Sand(props: JSX.IntrinsicElements["group"]) {
-  const { nodes, materials } = useGLTF(
-    "assets/gltf/sandlanshaft_17k_face.glb"
-  ) as GLTFResult | any;
+  const geo = useMemo(() => new THREE.CylinderGeometry(1, 1, 0.1), []);
+  const mat = useMemo(
+    () => new THREE.MeshBasicMaterial({ color: "white" }),
+    []
+  );
   return (
     <group {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Object_2.geometry}
-          material={materials["TextureAtlas_0.001"]}
-        />
-      </group>
+      <mesh castShadow receiveShadow geometry={geo} material={mat} />
     </group>
   );
 }
 
 export default Sand;
-
-useGLTF.preload("assets/gltf/sandlanshaft_17k_face.glb");
