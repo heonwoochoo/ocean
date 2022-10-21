@@ -1,46 +1,31 @@
-# Getting Started with Create React App
+# 2032년 지구
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![image](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black) ![image](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=black) ![image](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=Three.js&logoColor=white)
 
-## Available Scripts
+## Table of contents
 
-In the project directory, you can run:
+- ✨ [Motivation](#✨-motivation)
+- 🎨 [Presentation](#🎨-presentation)
+- 🚩 [Technologies](#🚩-technologies)
+- 🕸️ [Project Structure](#🕸️-project-structure)
+- ✍ [Blog Posting](#✍-blog-posting)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## ✨ Motivation
+## 🎨 Presentation
+## 🚩 Technologies
+전체적인 코드는 **React + Typescript** 문법을 준수하여 작성했습니다.  
+사용한 주요 라이브러리는 아래와 같습니다.
 
-### `npm test`
+| Library            | Documentation                                                                               | Purpose                        |
+| ------------------ | ------------------------------------------------------------------------------------------- | ------------------------------ |
+| three              | [See the docs](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene) | Javascript WebGL               |
+| react three fiber  | [See the docs](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction)         | The core library with Three.js |
+| react three drei   | [See the docs](https://github.com/pmndrs/drei)                                              | Some useful helpers            |
+| framer motion 3D | [See the docs](https://www.framer.com/docs/three-introduction/)                           | Animation library for react three fiber                |
+| styled-components  | [See the docs](https://styled-components.com/docs)                                          | Component styling              |
+| recoil             | [See the docs](https://recoiljs.org/ko/)                                                    | State management               |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🕸️ Project Structure
+## ✍ Blog Posting
