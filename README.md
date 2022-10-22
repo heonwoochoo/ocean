@@ -43,4 +43,16 @@
 | recoil             | [See the docs](https://recoiljs.org/ko/)                                                    | State management               |
 
 ## 🕸️ Project Structure
+📦src  
+ ┣ 📂components  
+ ┃ ┣ 📂img  
+ ┃ ┣ 📂model  
+ ┃ ┗ 📂ui  
+ ┣ 📂hooks  
+ ┣ 📜App.tsx  
+ ┣ 📜atoms.ts  
+ ┣ 📜index.tsx  
+ ┣ 📜react-app-env.d.ts  
+ ┣ 📜Setting.tsx  
+ ┗ 📜setupTests.ts  
 ## ✍ Blog Posting
