@@ -44,11 +44,11 @@
 
 ## 🕸️ Project Structure
 📦src  
- ┣ 📂components  
- ┃ ┣ 📂img  
- ┃ ┣ 📂model  
- ┃ ┗ 📂ui  
- ┣ 📂hooks  
+ ┣ 📂[components](./src/components)  
+ ┃ ┣ 📂[img](./src/components/img)  
+ ┃ ┣ 📂[model](./src/components/model)  
+ ┃ ┗ 📂[ui](./src/components/ui)  
+ ┣ 📂[hooks](./src/hooks)  
  ┣ 📜App.tsx  
  ┣ 📜atoms.ts  
  ┣ 📜index.tsx  
@@ -56,3 +56,5 @@
  ┣ 📜Setting.tsx  
  ┗ 📜setupTests.ts  
 ## ✍ Blog Posting
+
+#### 📌[프로젝트 회고](https://choogro.tistory.com/59)
