@@ -24,6 +24,11 @@
 페이시 시작 화면입니다. 우주 배경과 지구가 천천히 돌아가면서 자전을 하는듯한 느낌을 줬습니다. </br>
 지구를 클릭하면 다음 화면으로 넘어갑니다. </br>
 <img width="500px" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcNldIn%2FbtrPg1oK9bS%2FmZasmEsKpGNukVvkNLZtb1%2Fimg.jpg">
+바다를 클릭하면 해당 지점으로 보트가 이동합니다. 보트를 여기저기 이동시켜 쓰레기를 주워주세요 ! </br>
+쓰레기를 주워 담을수록 떨어지는 플라스틱이 줄어듭니다. </br>
+<img width="500px" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbr5cff%2FbtrPhmzlCXV%2F0ed47NcvKKK9ZImS6BDXV0%2Fimg.jpg">
+맵 한가운데 떠있는 펭귄과 북극곰을 클릭해 그들의 이야기를 들어보세요.
+
 ## 🚩 Technologies
 전체적인 코드는 **React + Typescript** 문법을 준수하여 작성했습니다.  
 사용한 주요 라이브러리는 아래와 같습니다.
